@@ -86,22 +86,24 @@ body {
 }
 /* Scroll customizado e fluido para o Catálogo */
 .catalog-scroll {
-    -webkit-overflow-scrolling: touch; /* Scroll suave nativo no iOS */
-    overscroll-behavior-y: contain; /* Impede que o scroll puxe a página de fundo */
-    scrollbar-width: thin; /* Estilo para Firefox */
-    scrollbar-color: #e5e7eb transparent;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin; 
+    scrollbar-color: #8c7460 transparent; /* Castanho mais escuro para contraste */
 }
 
 .catalog-scroll::-webkit-scrollbar {
-    width: 6px; /* Barra fina no Chrome/Safari */
+    width: 6px;
+    -webkit-appearance: none; /* Força a exibição em motores mobile */
 }
 
 .catalog-scroll::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.03); /* Fundo muito subtil para marcar o trilho */
+    border-radius: 10px;
 }
 
 .catalog-scroll::-webkit-scrollbar-thumb {
-    background-color: #e5e7eb;
+    background-color: #8c7460; /* Castanho visível */
     border-radius: 10px;
 }
 
