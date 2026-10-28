@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karol Vilar | Essence Vilar Beauty</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter, Playfair Display e Bebas Neue) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & Lenis para animações e scroll suave -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<!-- Força o navegador a baixar a logo escura antes do usuário rolar a tela -->
+<link rel="preload" href="fotos/logo2.webp" as="image">
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans antialiased overflow-hidden">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[999] bg-[#1a1715] flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="text-center px-6">
+            <img src="fotos/logo2.webp" alt="Karol Vilar" class="h-12 md:h-16 w-auto object-contain mx-auto mb-6 animate-pulse">
+            <p class="text-xs uppercase tracking-[0.3em] text-gray-400 font-sans">Carregando experiência...</p>
+            <div class="w-32 h-[2px] bg-white/20 mx-auto mt-6 relative overflow-hidden rounded-full">
+                <div id="preloader-bar" class="absolute top-0 left-0 bottom-0 bg-white w-full transform -translate-x-full transition-transform duration-1000"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar Dinâmica -->
+    <nav id="main-nav">
+        <!-- Logo com Imagem Dinâmica -->
+        <div class="nav-logo flex items-center">
+            <a href="#" class="flex items-center">
+                <img id="nav-logo" src="fotos/logo.webp" alt="Karol Vilar" class="h-8 md:h-10 w-auto object-contain transition-all duration-300">
+            </a>
+        </div>
+        
+        <!-- Links de Navegação (Desktop) -->
+        <ul class="nav-links hidden md:flex gap-8 text-sm font-semibold text-white">
+            <li><a href="#sobre" class="hover:text-[#e8dcc4] transition-colors duration-300">Sobre Nós</a></li>
+            <li><a href="#servicos" class="hover:text-[#e8dcc4] transition-colors duration-300">Serviços</a></li>
+            <li><a href="#destaques" class="hover:text-[#e8dcc4] transition-colors duration-300">Destaques</a></li>
+            <li><a href="#cuidados" class="hover:text-[#e8dcc4] transition-colors duration-300">Cuidados</a></li>
+            <li><a href="#cursos" class="hover:text-[#e8dcc4] transition-colors duration-300">Cursos</a></li>
+            <li><a href="#atendimento" class="hover:text-[#e8dcc4] transition-colors duration-300">Atendimento</a></li>
+            <li><a href="#contato" class="hover:text-[#e8dcc4] transition-colors duration-300">Contato</a></li>
+        </ul>
+
+        <!-- Botão CTA Direito (Desktop) -->
+        <div class="nav-cta hidden lg:block">
+            <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="bg-white text-[#1a1715] hover:bg-gray-100 px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all shadow-md">
+                Agendar
+            </a>
+        </div>
+
+        <!-- Controles Mobile (Visível apenas em telas menores) -->
+        <div class="flex items-center gap-3 md:hidden">
+            <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="bg-white text-[#1a1715] px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md">
+                Agendar
+            </a>
+            <button id="hamburger-btn" class="text-white p-2 focus:outline-none cursor-pointer" aria-label="Abrir Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu Mobile (Gaveta Lateral Deslizante) -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-[#1a1715]/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between p-8 md:hidden">
+        <div class="flex justify-between items-center">
+            <img src="fotos/logo.webp" alt="Karol Vilar" class="h-8 w-auto object-contain">
+            <button id="close-menu-btn" class="text-white p-2 focus:outline-none cursor-pointer" aria-label="Fechar Menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-6 text-center text-lg font-medium text-white my-auto">
+            <li><a href="#sobre" class="mobile-link hover:text-[#e8dcc4] transition-colors">Sobre Nós</a></li>
+            <li><a href="#servicos" class="mobile-link hover:text-[#e8dcc4] transition-colors">Serviços</a></li>
+            <li><a href="#destaques" class="mobile-link hover:text-[#e8dcc4] transition-colors">Destaques</a></li>
+            <li><a href="#cuidados" class="mobile-link hover:text-[#e8dcc4] transition-colors">Cuidados</a></li>
+            <li><a href="#cursos" class="mobile-link hover:text-[#e8dcc4] transition-colors">Cursos</a></li>
+            <li><a href="#atendimento" class="mobile-link hover:text-[#e8dcc4] transition-colors">Atendimento</a></li>
+            <li><a href="#contato" class="mobile-link hover:text-[#e8dcc4] transition-colors">Contato</a></li>
+        </ul>
+        <div class="flex flex-col gap-4">
+            <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="bg-white text-[#1a1715] text-center py-3.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-md">
+                Agendar Horário
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero relative w-full h-screen overflow-hidden flex flex-col justify-end px-8 pb-16">
+        
+        <!-- Background Image -->
+        <div class="parallax-bg absolute inset-0 w-full h-[120%] -top-[10%] bg-cover bg-center z-0" 
+             style="background-image: url('fotos/hero.webp');">
+        </div>
+        
+        <!-- Overlay escuro para contraste -->
+        <div class="hero-overlay absolute inset-0 z-10 pointer-events-none"></div>
+
+        <!-- Conteúdo Principal -->
+        <div class="relative z-20 w-full flex flex-col md:flex-row justify-between items-end h-full pt-32">
+            
+            <!-- Bloco Inferior Esquerdo -->
+            <div class="max-w-2xl mb-4 md:mb-0 hero-title-anim">
+                <h1 class="text-6xl md:text-8xl font-serif leading-tight mb-4">
+                    Essence Vilar <br>
+                    <span class="italic text-white/90">Beauty</span>
+                </h1>
+                <p class="text-sm md:text-base font-light tracking-wide text-gray-300">
+                    Enaltecendo belezas desde 2008. Cuidado honesto. Resultados atemporais.
+                </p>
+            </div>
+
+            <!-- Bloco Direito (Meio/Inferior) -->
+            <div class="flex flex-col items-end text-right mb-16 md:mb-56 max-w-xs hero-desc-anim">
+                <p class="text-sm font-light text-gray-200 mb-6 leading-relaxed">
+                    Um espaço calmo e elegante para mostrar seus serviços e despertar o poder que já existe dentro de você.
+                </p>
+                
+                <!-- Botão de Ação -->
+                <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="btn-hover flex items-center gap-4 rounded-full border border-white/30 pl-6 pr-2 py-2 hover:border-white transition-all cursor-pointer backdrop-blur-sm hero-btn-anim">
+                    <span class="text-sm font-medium text-white">Agendar visita</span>
+                    <div class="arrow-circle w-8 h-8 rounded-full border border-white/50 text-white flex items-center justify-center transition-colors duration-300">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Seção Sobre Nós / Filosofia -->
+    <section id="sobre" class="w-full bg-[#fcfbf9] text-[#2b2a29] py-32 px-8 flex justify-center">
+        <div class="max-w-6xl w-full flex flex-col md:flex-row items-center gap-16 md:gap-24">
+            
+            <!-- Lado Esquerdo (Textos) -->
+            <div class="w-full md:w-1/2 flex flex-col justify-center reveal-up">
+                <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715] mb-8">
+                    Nossa
+                    <br>
+                    <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">filosofia</span>
+                </h2>
+                <p class="text-base md:text-lg font-light leading-relaxed mb-6 text-gray-700">
+                    Eu ajudo mulheres a despertarem o poder que já existe dentro delas. Através das sobrancelhas, ofereço mais do que um procedimento estético: entrego autoestima, empoderamento e liberdade.
+                </p>
+                <p class="text-base md:text-lg font-light leading-relaxed text-gray-700">
+                    Profissional na área da beleza desde 2008, com mais de 15.700 procedimentos realizados, acredito que cada cliente é única. Sua beleza deve ser real, harmônica e feita para você — do seu jeito.
+                </p>
+            </div>
+
+            <!-- Lado Direito (Imagens Sobrepostas com Lazy Loading) -->
+            <div class="w-full md:w-1/2 relative h-[450px] md:h-[600px] reveal-up">
+                <img src="fotos/karol2.webp" alt="Karol Vilar" loading="lazy" class="absolute top-0 right-0 w-[75%] h-[80%] object-cover shadow-sm">
+                <img src="fotos/karol.webp" alt="Detalhe do procedimento" loading="lazy" class="absolute bottom-0 left-0 w-[65%] h-[55%] object-cover border-[12px] border-[#fcfbf9] shadow-lg z-10">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção Serviços / Portfólio (Estilo Editorial) -->
+    <section id="servicos" class="w-full bg-white text-[#2b2a29] py-24 md:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <!-- Cabeçalho da Seção -->
+            <div class="flex flex-col md:flex-row justify-between items-start mb-20 md:mb-32 reveal-up">
+                <div class="mb-10 md:mb-0">
+                    <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715]">
+                        Nossos
+                        <br>
+                        <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">serviços</span>
+                    </h2>
+                </div>
+
+                <div class="max-w-sm flex flex-col items-start md:items-end text-left md:text-right">
+                    <p class="text-[11px] md:text-xs font-sans font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed mb-6">
+                        Cada detalhe, cada fio, cada cliente é única. Aqui estão alguns dos nossos procedimentos criados com cuidado, precisão e paixão.
+                    </p>
+                    
+                    <button onclick="openCatalogModal()" class="group flex items-center gap-4 rounded-full border border-[#5a4b41] pl-6 pr-2 py-2 transition-all cursor-pointer">
+                        <span class="text-xs font-bold text-[#5a4b41] tracking-[0.2em] uppercase">Ver Catálogo</span>
+                        <div class="w-8 h-8 rounded-full border border-[#5a4b41] text-[#5a4b41] flex items-center justify-center transition-colors duration-300 group-hover:bg-[#5a4b41] group-hover:text-white">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grelha Assimétrica de Imagens (Apenas para Desktop - 100% Intacto com Lazy Loading) -->
+            <div class="hidden md:grid grid-cols-4 gap-8 items-start reveal-up">
+                <div class="flex flex-col gap-8">
+                    <img src="fotos/serviços/foto1.webp" alt="Serviço Lábios" loading="lazy" class="w-full h-auto object-cover aspect-[4/5]">
+                    <p class="text-[10px] font-sans text-gray-400 uppercase tracking-widest leading-relaxed pr-4">
+                        Focamo-nos em realçar os seus traços naturais enquanto entregamos resultados duradouros.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-8 mt-24">
+                    <img src="fotos/serviços/foto2.webp" alt="Serviço Sobrancelhas" loading="lazy" class="w-full h-auto object-cover aspect-[3/4]">
+                </div>
+
+                <div class="flex flex-col gap-8 mt-12">
+                    <img src="fotos/serviços/foto3.webp" alt="Rosto Modelo" loading="lazy" class="w-full h-auto object-cover aspect-[3/4] scale-110 origin-top">
+                    <p class="text-[10px] font-sans text-gray-400 uppercase tracking-widest leading-relaxed mt-12">
+                        Cada cliente sai sentindo-se mais confiante e radiante.
+                    </p>
+                </div>
+
+                <div class="flex flex-col justify-between h-full gap-8">
+                    <p class="text-[10px] font-sans text-gray-400 uppercase tracking-widest leading-relaxed pl-4">
+                        Do design de sobrancelhas perfeito aos lábios incrivelmente revitalizados, cada serviço é adaptado a si.
+                    </p>
+                    <img src="fotos/serviços/foto4.webp" alt="Detalhe Serviço" loading="lazy" class="w-full h-auto object-cover aspect-square mb-12">
+                </div>
+            </div>
+
+            <!-- Carrossel de Serviços Mobile (Com descrições em cima das fotos, arrastável para o lado) -->
+            <div class="flex md:hidden overflow-x-auto gap-4 snap-x snap-mandatory scrollbar-none -mx-8 px-8 pb-4 reveal-up">
+                
+                <!-- Card 1 -->
+                <div class="min-w-[280px] w-[75vw] h-[400px] relative rounded-3xl overflow-hidden snap-center flex flex-col justify-between p-6 shadow-lg shrink-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('fotos/serviços/foto1.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
+                    
+                    <!-- Descrição em cima -->
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Lábios & Realce</span>
+                        <p class="text-xs font-light text-white leading-relaxed">Focamo-nos em realçar os seus traços naturais enquanto entregamos resultados duradouros.</p>
+                    </div>
+
+                    <div class="relative z-10 flex justify-between items-center">
+                        <span class="text-sm font-bebas text-white tracking-wide">Essence Beauty</span>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="min-w-[280px] w-[75vw] h-[400px] relative rounded-3xl overflow-hidden snap-center flex flex-col justify-between p-6 shadow-lg shrink-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('fotos/serviços/foto2.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
+                    
+                    <!-- Descrição em cima -->
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Sobrancelhas</span>
+                        <p class="text-xs font-light text-white leading-relaxed">Design de sobrancelhas perfeito com máxima precisão e harmonia para o seu rosto.</p>
+                    </div>
+
+                    <div class="relative z-10 flex justify-between items-center">
+                        <span class="text-sm font-bebas text-white tracking-wide">Visagismo</span>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="min-w-[280px] w-[75vw] h-[400px] relative rounded-3xl overflow-hidden snap-center flex flex-col justify-between p-6 shadow-lg shrink-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('fotos/serviços/foto3.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
+                    
+                    <!-- Descrição em cima -->
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Expressão & Confiança</span>
+                        <p class="text-xs font-light text-white leading-relaxed">Cada cliente sai sentindo-se mais confiante, radiante e com a autoestima renovada.</p>
+                    </div>
+
+                    <div class="relative z-10 flex justify-between items-center">
+                        <span class="text-sm font-bebas text-white tracking-wide">Resultados Atemporais</span>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="min-w-[280px] w-[75vw] h-[400px] relative rounded-3xl overflow-hidden snap-center flex flex-col justify-between p-6 shadow-lg shrink-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('fotos/serviços/foto4.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
+                    
+                    <!-- Descrição em cima -->
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Cuidados Especiais</span>
+                        <p class="text-xs font-light text-white leading-relaxed">Do design perfeito aos lábios revitalizados, cada detalhe é adaptado exclusivamente a si.</p>
+                    </div>
+
+                    <div class="relative z-10 flex justify-between items-center">
+                        <span class="text-sm font-bebas text-white tracking-wide">Atendimento Exclusivo</span>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SEÇÃO SERVIÇOS DESTAQUE (Com 3 Cards de Imagem Padronizados) -->
+    <section id="destaques" class="w-full bg-[#fcfbf9] text-[#2b2a29] py-24 md:py-32 border-t border-gray-200/60">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <!-- Cabeçalho da Seção de Destaques -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 md:mb-20 gap-8 reveal-up">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715] mb-4">
+                        SERVIÇOS
+                        <br>
+                        <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">destaque</span>
+                    </h2>
+                </div>
+                <div class="max-w-xl">
+                    <p class="text-sm md:text-base font-light text-gray-600 leading-relaxed">
+                        Procedimentos de excelência com tecnologia avançada. Conheça nossos tratamentos especializados em remoção a laser e micropigmentação na sobrancelha, oferecendo precisão milimétrica, máxima segurança e resultados atemporais com assinatura da marca Karol Vilar.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Grid de 3 Cards de Destaque -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-up">
+                
+                <!-- Card 1: Remoção a Laser -->
+                <div class="relative rounded-3xl overflow-hidden h-[400px] md:h-[460px] flex flex-col justify-end p-6 group shadow-lg">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('fotos/destaque/laser.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    
+                    <div class="relative z-10 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Tecnologia Segura</span>
+                            <h3 class="text-3xl font-bebas text-white tracking-wide">Remoção a Laser</h3>
+                        </div>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Micropigmentação Sobrancelha -->
+                <div class="relative rounded-3xl overflow-hidden h-[400px] md:h-[460px] flex flex-col justify-end p-6 group shadow-lg">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('fotos/destaque/micro.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    
+                    <div class="relative z-10 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Visagismo & Fios</span>
+                            <h3 class="text-3xl font-bebas text-white tracking-wide">Micropigmentação Sobrancelha</h3>
+                        </div>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Resultados Reais -->
+                <div class="relative rounded-3xl overflow-hidden h-[400px] md:h-[460px] flex flex-col justify-end p-6 group shadow-lg">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('fotos/destaque/resultado.webp');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    
+                    <div class="relative z-10 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest block mb-1">Resultados Reais</span>
+                            <h3 class="text-3xl font-bebas text-white tracking-wide">Resultados e Evolução</h3>
+                        </div>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção Cuidados / FAQ -->
+    <section id="cuidados" class="w-full bg-[#fcfbf9] text-[#2b2a29] py-24 md:py-32">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start mb-16 md:mb-24 gap-8 reveal-up">
+                <div class="mb-10 md:mb-0">
+                    <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715]">
+                        O cuidado
+                        <br>
+                        <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">continua</span>
+                    </h2>
+                </div>
+                
+                <div class="max-w-sm flex flex-col items-start md:items-end text-left md:text-right">
+                    <p class="text-[11px] md:text-xs font-sans font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed mb-6">
+                        Cada pele possui o seu próprio tempo de recuperação. Siga as orientações individualizadas recebidas durante o atendimento e entre em contacto connosco caso tenha dúvidas sobre a sua evolução. Em caso de sinais de infeção ou reação importante, procure atendimento médico.
+                    </p>
+                    
+                    <a href="https://wa.me/5511913341803" target="_blank" class="group flex items-center gap-4 rounded-full border border-[#5a4b41] pl-6 pr-2 py-2 transition-all cursor-pointer whitespace-nowrap">
+                        <span class="text-xs font-bold text-[#5a4b41] tracking-[0.2em] uppercase">Falar Conosco</span>
+                        <div class="w-8 h-8 rounded-full border border-[#5a4b41] text-[#5a4b41] flex items-center justify-center transition-colors duration-300 group-hover:bg-[#5a4b41] group-hover:text-white">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grelha FAQ -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start reveal-up">
+                
+                <!-- Item FAQ 1 -->
+                <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-sm">
+                    <button class="faq-header w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none cursor-pointer">
+                        <span class="font-bold text-[#2b2a29] text-base md:text-lg">Micropigmentação de Sobrancelhas</span>
+                        <div class="faq-icon text-[#5a4b41]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </button>
+                    <div class="faq-content px-6 md:px-8 pb-0 text-sm text-gray-500 font-sans space-y-3">
+                        <div class="pb-6 md:pb-8 space-y-3">
+                            <p>• Mantenha a região limpa, seguindo as orientações recebidas durante o atendimento.</p>
+                            <p>• Lave as mãos antes de tocar na região.</p>
+                            <p>• Passar cicaplast 2x ao dia por 15 dias.</p>
+                            <p>• Não coce, esfregue ou retire as pelinhas e crostas.</p>
+                            <p>• Evite maquiagem sobre a área até a pele estar cicatrizada.</p>
+                            <p>• Evite piscina, mar, sauna e exposição solar direta durante a cicatrização.</p>
+                            <p>• Não utilize ácidos, esfoliantes ou produtos não recomendados na região.</p>
+                            <p>• Não faça procedimentos adicionais nas sobrancelhas até a recuperação completa.</p>
+                            <p>• Respeite o prazo de cicatrização e o intervalo indicado para a avaliação ou retoque.</p>
+                            <p class="text-[#b31b1b] font-medium pt-2">Atenção: dor crescente, vermelhidão que se espalha, secreção ou febre exigem avaliação médica.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item FAQ 2 -->
+                <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-sm">
+                    <button class="faq-header w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none cursor-pointer">
+                        <span class="font-bold text-[#2b2a29] text-base md:text-lg">Remoção a Laser (Micropigmentação ou Tatuagem)</span>
+                        <div class="faq-icon text-[#5a4b41]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </button>
+                    <div class="faq-content px-6 md:px-8 pb-0 text-sm text-gray-500 font-sans space-y-3">
+                        <div class="pb-6 md:pb-8 space-y-3">
+                            <p>• Mantenha a região limpa e protegida conforme as orientações recebidas.</p>
+                            <p>• Não esfregue, coce ou manipule a área tratada.</p>
+                            <p>• Se houver desconforto, utilize compressa fria limpa, sem colocar gelo diretamente na pele.</p>
+                            <p>• Não estoure bolhas nem retire crostas.</p>
+                            <p>• Utilize somente os produtos recomendados para o seu caso.</p>
+                            <p>• Evite exposição solar direta, piscina, mar e sauna até a recuperação da pele.</p>
+                            <p>• Não aplique maquiagem, ácidos, álcool ou receitas caseiras na região em cicatrização.</p>
+                            <p>• Aguarde a recuperação completa da pele antes de realizar uma nova sessão.</p>
+                            <p class="text-[#b31b1b] font-medium pt-2">Atenção: se houver dor intensa ou crescente, bolhas extensas, pus, febre ou vermelhidão progressiva, procure avaliação médica.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item FAQ 3 -->
+                <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-sm">
+                    <button class="faq-header w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none cursor-pointer">
+                        <span class="font-bold text-[#2b2a29] text-base md:text-lg">Lash Lifting</span>
+                        <div class="faq-icon text-[#5a4b41]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </button>
+                    <div class="faq-content px-6 md:px-8 pb-0 text-sm text-gray-500 font-sans space-y-3">
+                        <div class="pb-6 md:pb-8 space-y-3">
+                            <p>• Evite molhar os cílios pelo período indicado (geralmente de 24 a 48 horas).</p>
+                            <p>• Não esfregue os olhos nem puxe os fios.</p>
+                            <p>• Evite vapor intenso, sauna e suor excessivo durante o período inicial.</p>
+                            <p>• Não utilize máscara de cílios ou maquiagem na região durante o período de restrição.</p>
+                            <p>• Evite curvex e produtos não recomendados.</p>
+                            <p>• Após o período inicial, higienize delicadamente os cílios com produto adequado.</p>
+                            <p>• Utilize uma escovinha limpa para alinhar os fios, se recomendado.</p>
+                            <p>• Não tente corrigir a curvatura em casa nem repita o procedimento antes do intervalo indicado.</p>
+                            <p class="text-[#b31b1b] font-medium pt-2">Atenção: ardência persistente, dor ocular, inchaço importante ou alteração da visão exigem avaliação médica.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item FAQ 4 -->
+                <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-sm">
+                    <button class="faq-header w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none cursor-pointer">
+                        <span class="font-bold text-[#2b2a29] text-base md:text-lg">Micropigmentação Labial</span>
+                        <div class="faq-icon text-[#5a4b41]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </button>
+                    <div class="faq-content px-6 md:px-8 pb-0 text-sm text-gray-500 font-sans space-y-3">
+                        <div class="pb-6 md:pb-8 space-y-3">
+                            <p>• Higienize os lábios delicadamente, especialmente após as refeições.</p>
+                            <p>• Lave as mãos antes de tocar na região.</p>
+                            <p>• Não lamba, morda, esfregue ou retire as pelinhas dos lábios.</p>
+                            <p>• Utilize somente o hidratante ou produto pós-procedimento recomendado.</p>
+                            <p>• Evite batom, gloss e outros cosméticos até a cicatrização completa.</p>
+                            <p>• Evite alimentos muito quentes enquanto houver sensibilidade, além de alimentos ácidos ou picantes se provocarem ardência.</p>
+                            <p>• Não exponha os lábios ao sol diretamente durante a cicatrização.</p>
+                            <p>• Evite piscina, mar e sauna até a recuperação da região. Não compartilhe produtos labiais.</p>
+                            <p class="text-[#b31b1b] font-medium pt-2">Atenção: se surgirem bolhinhas agrupadas, ardência ou formigamento sugestivos de herpes, procure orientação médica.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item FAQ 5 -->
+                <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-sm">
+                    <button class="faq-header w-full text-left p-6 md:p-8 flex justify-between items-center focus:outline-none cursor-pointer">
+                        <span class="font-bold text-[#2b2a29] text-base md:text-lg">Reparo Tecidual</span>
+                        <div class="faq-icon text-[#5a4b41]">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </button>
+                    <div class="faq-content px-6 md:px-8 pb-0 text-sm text-gray-500 font-sans space-y-3">
+                        <div class="pb-6 md:pb-8 space-y-3">
+                            <p>• Mantenha a região limpa, conforme a orientação específica recebida.</p>
+                            <p>• Evite tocar, esfregar ou massagear a área sem autorização.</p>
+                            <p>• Não retire crostas nem provoque descamação.</p>
+                            <p>• Evite ácidos, esfoliantes, clareadores e outros produtos irritantes durante a recuperação.</p>
+                            <p>• Utilize somente os produtos indicados para o procedimento realizado.</p>
+                            <p>• Proteja a região da exposição solar direta.</p>
+                            <p>• Não realize novos procedimentos na área antes da recuperação completa e da liberação profissional.</p>
+                            <p>• Se o reparo tecidual for realizado após laser, siga também todas as orientações da sessão.</p>
+                            <p class="text-[#b31b1b] font-medium pt-2">Atenção: dor crescente, vermelhidão progressiva, calor intenso, secreção ou febre exigem avaliação médica.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CURSOS -->
+    <section id="cursos" class="w-full bg-white text-[#2b2a29] py-24 md:py-32 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <!-- Cabeçalho da Seção Cursos -->
+            <div class="flex flex-col md:flex-row justify-between items-start mb-16 md:mb-24 gap-8 reveal-up">
+                <div class="mb-10 md:mb-0">
+                    <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715]">
+                        Venha realizar
+                        <br>
+                        <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">esse sonho</span>
+                    </h2>
+                </div>
+                <div class="max-w-sm flex flex-col items-start md:items-end text-left md:text-right">
+                    <p class="text-[11px] md:text-xs font-sans font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed">
+                        Transforme sua paixão em profissão com a nossa formação completa em Design e Micropigmentação. Um método exclusivo, com alta carga prática e acompanhamento de perto para você se destacar no mercado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Grid Cursos -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch reveal-up">
+                
+                <!-- Coluna 1: Lista de Módulos -->
+                <div class="lg:col-span-3 bg-[#fcfbf9] p-8 rounded-3xl border border-gray-100 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 block font-sans">Módulos</span>
+                        <ul class="space-y-4 text-sm font-medium text-gray-700 font-sans">
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Visagismo aplicado</li>
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Anatomia das sobrancelhas</li>
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Biossegurança e esterilização</li>
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Pinça, linha e cera</li>
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Mapeamento e marcação</li>
+                            <li class="flex items-center gap-2 border-b border-gray-200/60 pb-3">• Shadow & Fios</li>
+                            <li class="flex items-center gap-2 pb-1">• Suporte pós-curso</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Card Médio Branco -->
+                <div class="lg:col-span-3 bg-[#fcfbf9] p-8 md:p-10 rounded-3xl border border-gray-100 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 block font-sans">Formação Profissional</span>
+                        <h3 class="text-4xl font-bebas text-[#1a1715] mb-4 tracking-wide">Design & Micropigmentação</h3>
+                        <p class="text-sm text-gray-500 font-sans leading-relaxed mb-8">
+                            Curso presencial de 2 dias intensivos (das 8h às 18h) com mais de 80% de prática em modelos reais. Turmas reduzidas de 2 a 4 alunas para acompanhamento exclusivo.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="inline-block bg-[#1a1715] hover:bg-[#333] text-white text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all text-center w-full shadow-md">
+                            Saiba Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Card Largo Escuro com Imagem -->
+                <div class="lg:col-span-6 relative bg-[#1a1715]/80 text-white p-8 md:p-10 rounded-3xl overflow-hidden flex flex-col justify-between shadow-xl">
+                    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-75 mix-blend-overlay" style="background-image: url('fotos/curso/foto1.webp');"></div>
+                    <div class="absolute inset-0 z-0 bg-gradient-to-r from-[#1a1715]/75 via-[#1a1715]/40 to-transparent"></div>
+
+                    <div class="relative z-10">
+                        <h3 class="text-4xl md:text-5xl font-bebas mb-4 tracking-wide leading-none">Transforme sua vida na beleza!</h3>
+                        <p class="text-sm text-gray-200 font-sans leading-relaxed mb-8 max-w-md">
+                            Invista no seu futuro profissional. R$ 1.297 à vista ou parcele em até 10x de R$ 177. Garanta sua vaga com apenas R$ 250 de sinal.
+                        </p>
+                    </div>
+                    <div class="relative z-10">
+                        <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="inline-block bg-white hover:bg-gray-100 text-[#1a1715] text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all text-center shadow-lg w-auto">
+                            Garantir Vaga
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SEÇÃO CONDIÇÕES DE ATENDIMENTO -->
+    <section id="atendimento" class="w-full bg-[#fcfbf9] text-[#2b2a29] py-24 md:py-32 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <!-- Cabeçalho da Seção -->
+            <div class="flex flex-col md:flex-row justify-between items-start mb-16 md:mb-20 gap-8 reveal-up">
+                <div class="max-w-2xl">
+                    <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715] mb-4">
+                        Condições de
+                        <br>
+                        <span class="font-serif italic text-[#5a4b41] font-normal lowercase text-6xl md:text-8xl">atendimento</span>
+                    </h2>
+                </div>
+                <div class="max-w-sm flex flex-col items-start md:items-end text-left md:text-right">
+                    <p class="text-[11px] md:text-xs font-sans font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed mb-6">
+                        O nosso objetivo é proporcionar uma experiência de luxo e tranquilidade. Para que tudo seja perfeito e o seu momento seja respeitado, estabelecemos algumas diretrizes simples.
+                    </p>
+                    <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="group flex items-center gap-4 rounded-full border border-[#5a4b41] pl-6 pr-2 py-2 transition-all cursor-pointer">
+                        <span class="text-xs font-bold text-[#5a4b41] tracking-[0.2em] uppercase">Agendar Agora</span>
+                        <div class="w-8 h-8 rounded-full border border-[#5a4b41] text-[#5a4b41] flex items-center justify-center transition-colors duration-300 group-hover:bg-[#5a4b41] group-hover:text-white">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grid de Cards Estilo Referência -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 reveal-up">
+                
+                <!-- Card 1: Antecedência -->
+                <div class="bg-[#f5f3ef] p-6 md:p-8 rounded-[2rem] flex flex-col h-full aspect-[4/5] relative group hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-start mb-auto">
+                        <span class="text-[10px] font-bold text-gray-500 font-sans tracking-widest uppercase">{ chegada }</span>
+                        <svg class="text-gray-400 group-hover:text-[#5a4b41] transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text-3xl font-bebas tracking-wide text-[#1a1715] mb-3">Antecedência</h4>
+                        <p class="text-[13px] text-gray-600 font-sans leading-relaxed">
+                            Pedimos que chegue com pelo menos 10 minutos de antecedência para desfrutar do nosso espaço e garantir que o seu atendimento inicie exatamente no horário marcado.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Cancelamentos -->
+                <div class="bg-[#eef0ef] p-6 md:p-8 rounded-[2rem] flex flex-col h-full aspect-[4/5] relative group hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-start mb-auto">
+                        <span class="text-[10px] font-bold text-gray-500 font-sans tracking-widest uppercase">{ agenda }</span>
+                        <svg class="text-gray-400 group-hover:text-[#5a4b41] transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text-3xl font-bebas tracking-wide text-[#1a1715] mb-3">Cancelamentos</h4>
+                        <p class="text-[13px] text-gray-600 font-sans leading-relaxed">
+                            Em caso de imprevistos, solicitamos que o cancelamento seja feito com no mínimo 24 horas de antecedência. Dessa forma, podemos reorganizar a nossa agenda e atender outra cliente.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Remarcações -->
+                <div class="bg-[#edeae5] p-6 md:p-8 rounded-[2rem] flex flex-col h-full aspect-[4/5] relative group hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-start mb-auto">
+                        <span class="text-[10px] font-bold text-gray-500 font-sans tracking-widest uppercase">{ pontualidade }</span>
+                        <svg class="text-gray-400 group-hover:text-[#5a4b41] transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text-3xl font-bebas tracking-wide text-[#1a1715] mb-3">Remarcações</h4>
+                        <p class="text-[13px] text-gray-600 font-sans leading-relaxed">
+                            Avisos em cima da hora comprometem o nosso cronograma. Atrasos superiores a 15 minutos poderão resultar na necessidade de remarcação do seu procedimento.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Cortesia -->
+                <div class="relative bg-[#1a1715]/80 text-white p-6 md:p-8 rounded-[2rem] flex flex-col h-full aspect-[4/5] overflow-hidden group hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-75 mix-blend-overlay" style="background-image: url('fotos/cortesia.webp');"></div>
+                    <div class="absolute inset-0 z-0 bg-gradient-to-b from-[#1a1715]/80 via-[#1a1715]/50 to-[#1a1715]/90"></div>
+                    
+                    <div class="relative z-10 flex justify-between items-start mb-auto">
+                        <span class="text-[10px] font-bold text-gray-300 font-sans tracking-widest uppercase">{ mimo }</span>
+                        <svg class="text-gray-300 group-hover:text-white transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                    <div class="relative z-10 mt-8">
+                        <h4 class="text-3xl font-bebas tracking-wide text-white mb-3">Nossa Cortesia</h4>
+                        <p class="text-[13px] text-gray-200 font-sans leading-relaxed">
+                            Relaxe e aproveite o seu momento. Sinta-se em casa e experimente o nosso delicioso cappuccino, chás especiais ou um café expresso enquanto cuidamos de você.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE CONTATOS -->
+    <section id="contato" class="w-full bg-[#fcfbf9] text-[#2b2a29] py-24 md:py-32">
+        <div class="max-w-7xl mx-auto w-full px-8">
+            
+            <h2 class="text-5xl md:text-7xl font-sans font-extrabold tracking-tight uppercase leading-none text-[#1a1715] mb-16 md:mb-24 reveal-up">
+                Contatos
+            </h2>
+
+            <!-- 3 Colunas de Contato -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16 reveal-up">
+                
+                <!-- Coluna 1: Endereço -->
+                <div>
+                    <h4 class="text-xl font-bold text-[#1a1715] mb-6">Endereço</h4>
+                    <p class="text-sm text-gray-500 font-sans leading-relaxed mb-6">
+                        Av. Sapopemba, 9359<br>
+                        Jardim Adutora, São Paulo - SP, 03988-010
+                    </p>
+                    <a href="https://maps.google.com/?q=Av.+Sapopemba,+9359+-+Jardim+Adutora,+S%C3%A3o+Paulo+-+SP" target="_blank" class="inline-flex items-center gap-2 border border-gray-300 hover:border-[#5a4b41] hover:bg-[#5a4b41] text-[#2b2a29] hover:text-white px-6 py-3 rounded-full text-sm font-medium transition-all duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Como chegar
+                    </a>
+                </div>
+
+                <!-- Coluna 2: Botões de Contato e Links -->
+                <div>
+                    <h4 class="text-xl font-bold text-[#1a1715] mb-6">Fale Conosco</h4>
+                    <div class="space-y-6">
+                        
+                        <!-- WhatsApp -->
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 ml-14">WhatsApp</p>
+                            <a href="https://wa.me/5511913341803" target="_blank" class="group flex items-center gap-4 text-lg font-medium text-[#1a1715] hover:text-[#5a4b41] transition-all duration-300 hover:translate-x-1">
+                                <div class="w-10 h-10 rounded-full bg-white border border-gray-200 group-hover:bg-[#5a4b41] group-hover:border-[#5a4b41] flex items-center justify-center transition-colors duration-300">
+                                    <svg class="text-[#1a1715] group-hover:text-white transition-colors duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                </div>
+                                <span>+55 11 91334-1803</span>
+                            </a>
+                        </div>
+
+                        <!-- Instagram -->
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 ml-14">Instagram</p>
+                            <a href="https://www.instagram.com/vilar.essence?xtok=Y3ZzcmYxY3Fvd2Yx&utm_source=qr" target="_blank" class="group flex items-center gap-4 text-lg font-medium text-[#1a1715] hover:text-[#5a4b41] transition-all duration-300 hover:translate-x-1">
+                                <div class="w-10 h-10 rounded-full bg-white border border-gray-200 group-hover:bg-[#5a4b41] group-hover:border-[#5a4b41] flex items-center justify-center transition-colors duration-300">
+                                    <svg class="text-[#1a1715] group-hover:text-white transition-colors duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </div>
+                                <span>@vilar.essence</span>
+                            </a>
+                        </div>
+
+                        <!-- Agendamento Online -->
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 ml-14">Agendamento Online</p>
+                            <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="group flex items-center gap-4 text-lg font-medium text-[#1a1715] hover:text-[#5a4b41] transition-all duration-300 hover:translate-x-1">
+                                <div class="w-10 h-10 rounded-full bg-white border border-gray-200 group-hover:bg-[#5a4b41] group-hover:border-[#5a4b41] flex items-center justify-center transition-colors duration-300">
+                                    <svg class="text-[#1a1715] group-hover:text-white transition-colors duration-300" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                </div>
+                                <span>Marcar Horário</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Horários -->
+                <div>
+                    <h4 class="text-xl font-bold text-[#1a1715] mb-6">Horário de Funcionamento</h4>
+                    <div class="space-y-4 text-sm font-medium text-gray-600">
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>Segunda-feira</span>
+                            <span>Fechado</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>Terça a Sexta</span>
+                            <span class="flex items-center gap-2">09:00 <svg class="inline w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg> 19:00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>Sábado</span>
+                            <span class="flex items-center gap-2">09:00 <svg class="inline w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg> 17:00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>Domingo</span>
+                            <span>Fechado</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mapa -->
+            <div class="relative w-full h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-200 group reveal-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.452586737385!2d-46.5051912!3d-23.588231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce672f10b71947%3A0x6e9f28d8b9d36239!2sAv.%20Sapopemba%2C%209359%20-%20Jardim%20Adutora%2C%20S%C3%A3o%20Paulo%2C%20SP%2C%2003988-010!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="absolute inset-0 w-full h-full"></iframe>
+                <div class="absolute inset-0 bg-[#8c7460]/40 mix-blend-multiply pointer-events-none transition-opacity duration-500 group-hover:opacity-0"></div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- RODAPÉ COM FUNDO MARROM (Logo aumentada) -->
+    <footer class="w-full bg-[#3d312a] text-white py-20 px-8 reveal-up">
+        <div class="max-w-7xl mx-auto w-full">
+            
+            <!-- Conteúdo Principal do Rodapé -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 pb-16">
+                
+                <!-- Coluna Esquerda: Logótipo com Imagem Maior e Slogan -->
+                <div class="md:col-span-1 flex flex-col justify-start">
+                    <a href="#" class="mb-4 inline-block">
+                        <img src="fotos/logo2.webp" alt="Karol Vilar" loading="lazy" class="h-14 md:h-16 w-auto object-contain">
+                    </a>
+                    <p class="text-xs text-gray-300 uppercase tracking-widest">ESSENCE VILAR BEAUTY</p>
+                </div>
+
+                <!-- Colunas de Links à Direita -->
+                <div class="md:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-gray-300">
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Navegação</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#sobre" class="hover:text-white transition-colors">Sobre Nós</a></li>
+                            <li><a href="#servicos" class="hover:text-white transition-colors">Serviços</a></li>
+                            <li><a href="#destaques" class="hover:text-white transition-colors">Destaques</a></li>
+                            <li><a href="#cuidados" class="hover:text-white transition-colors">Cuidados</a></li>
+                            <li><a href="#cursos" class="hover:text-white transition-colors">Cursos</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Atendimento</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#atendimento" class="hover:text-white transition-colors">Condições</a></li>
+                            <li><a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="hover:text-white transition-colors">Agendamento</a></li>
+                            <li><a href="#contato" class="hover:text-white transition-colors">Localização</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Suporte</h4>
+                        <ul class="space-y-3">
+                            <li><a href="https://wa.me/5511913341803" target="_blank" class="hover:text-white transition-colors">WhatsApp</a></li>
+                            <li><a href="#contato" class="hover:text-white transition-colors">Fale Connosco</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-wider mb-4 text-xs">Profissional</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#cursos" class="hover:text-white transition-colors">Formações</a></li>
+                            <li><a href="#servicos" class="hover:text-white transition-colors">Catálogo</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Linha Divisória -->
+            <div class="w-full h-[1px] bg-white/20 mb-12"></div>
+
+            <!-- Área Inferior: Ícones Sociais e Copyright -->
+            <div class="flex flex-col items-center justify-center space-y-6">
+                
+                <!-- Ícones Sociais Circulares -->
+                <div class="flex items-center gap-4">
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/vilar.essence?xtok=Y3ZzcmYxY3Fvd2Yx&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-[#3d312a] transition-all duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/5511913341803" target="_blank" class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-[#3d312a] transition-all duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </a>
+                    <!-- Agendamento -->
+                    <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-[#3d312a] transition-all duration-300">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </a>
+                </div>
+
+                <!-- Copyright -->
+                <p class="text-xs text-gray-400 font-sans tracking-wide">
+                    &copy; 2026 Karol Vilar. Todos os direitos reservados.
+                </p>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Estrutura do Modal de Catálogo -->
+    <div id="catalogModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm px-4">
+        <div id="catalogContent" class="bg-[#fcfbf9] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            
+            <div class="flex justify-between items-center p-6 border-b border-[#5a4b41]/20">
+                <h3 class="text-3xl font-serif text-[#5a4b41]">Catálogo Completo</h3>
+                <button onclick="closeCatalogModal()" class="text-[#5a4b41] hover:text-black transition p-2 cursor-pointer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 md:p-8 overflow-y-auto text-[#2b2a29] font-sans">
+                <!-- Sobrancelhas -->
+                <div class="mb-10">
+                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Sobrancelhas</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Design Personalizado</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 50,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Design com Henna</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 60,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Nano Fios</p><p class="text-xs text-gray-500">Retoque 30 dias incluso (Retoque Anual: R$ 450,00)</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Micropigmentação Sombreada</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Brow Lamination</p><p class="text-xs text-gray-500">Incluso design (Durabilidade 4 a 8 semanas)</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Microhenna</p><p class="text-xs text-gray-500">Durabilidade de 03 a 06 meses (Sem retoque)</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 299,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Reparo Tecidual (Fort Brown)</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 167,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Correção de Micropigmentação</p><p class="text-xs text-gray-500">Necessário avaliação</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 600,00</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Lábios -->
+                <div class="mb-10">
+                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Lábios</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Hydra Gloss Lips</p><p class="text-xs text-gray-500">Valor por sessão</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 75,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Micropigmentação Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Neutralização Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Rosto e Cílios -->
+                <div>
+                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Rosto & Cílios</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Lash Lifting</p><p class="text-xs text-gray-500">Durabilidade 4 a 8 semanas</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Depilação Rosto Completo</p><p class="text-xs text-gray-500">Linha e Cera</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 28,00</p>
+                        </li>
+                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                            <div><p class="font-medium text-lg">Depilação Buço</p></div>
+                            <p class="font-bold text-[#5a4b41]">R$ 15,00</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-[#5a4b41]/20 bg-white flex justify-end">
+                <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="group flex items-center gap-4 rounded-full bg-[#5a4b41] hover:bg-[#40342d] px-8 py-3 transition-all cursor-pointer">
+                    <span class="text-xs font-bold text-white tracking-[0.2em] uppercase">Agendar Horário</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Botão Flutuante de Avaliação do Google -->
+    <a href="https://share.google/tvRSX9o7pZAEh3fyh" target="_blank" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-white text-[#1a1715] hover:bg-[#fcfbf9] px-5 py-3 rounded-full shadow-2xl border border-gray-200/80 transition-all duration-300 hover:scale-105 group">
+        <div class="flex text-amber-400">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wider text-[#1a1715]">Avalie no Google</span>
+    </a>
+
+    <!-- JS Externo -->
+    <script src="script.js"></script>
+</body>
+</html>
