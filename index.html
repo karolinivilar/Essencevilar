@@ -905,7 +905,7 @@
     <div id="catalogModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm px-4">
         <div id="catalogContent" class="bg-[#fcfbf9] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
             
-            <div class="flex justify-between items-center p-6 border-b border-[#5a4b41]/20">
+            <div class="flex justify-between items-center p-6 border-b border-[#5a4b41]/20 shrink-0">
                 <h3 class="text-3xl font-serif text-[#5a4b41]">Catálogo Completo</h3>
                 <button onclick="closeCatalogModal()" class="text-[#5a4b41] hover:text-black transition p-2 cursor-pointer">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -914,7 +914,7 @@
                 </button>
             </div>
 
-            <div class="p-6 md:p-8 overflow-y-auto text-[#2b2a29] font-sans catalog-scroll">
+            <div class="p-6 md:p-8 overflow-y-auto text-[#2b2a29] font-sans catalog-scroll flex-1 touch-pan-y">
                 <!-- Sobrancelhas -->
                 <div class="mb-10">
                     <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Sobrancelhas</h4>
@@ -993,7 +993,7 @@
                 </div>
             </div>
 
-            <div class="p-6 border-t border-[#5a4b41]/20 bg-white flex justify-end">
+            <div class="p-6 border-t border-[#5a4b41]/20 bg-white flex justify-end shrink-0">
                 <a href="https://online.maapp.com.br/Karolvilar" target="_blank" class="group flex items-center gap-4 rounded-full bg-[#5a4b41] hover:bg-[#40342d] px-8 py-3 transition-all cursor-pointer">
                     <span class="text-xs font-bold text-white tracking-[0.2em] uppercase">Agendar Horário</span>
                 </a>
