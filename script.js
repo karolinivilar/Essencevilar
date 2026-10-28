@@ -203,3 +203,22 @@ window.addEventListener('load', () => {
         }, 700);
     }, 400);
 });
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    const preloaderBar = document.getElementById('preloader-bar');
+    
+    preloaderBar.style.transform = 'translateY(0)';
+    
+    setTimeout(() => {
+        preloader.style.opacity = '0';
+        preloader.style.pointerEvents = 'none';
+        
+        // Remove tanto a classe quanto o estilo inline para libertar o scroll
+        document.body.classList.remove('overflow-hidden');
+        document.body.style.overflow = '';
+        
+        setTimeout(() => {
+            preloader.remove();
+        }, 700);
+    }, 400);
+});
