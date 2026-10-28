@@ -44,11 +44,11 @@ body {
 .faq-item.active .faq-icon {
     transform: rotate(45deg);
 }
+
 /* Navbar Dinâmica Otimizada */
 #main-nav {
     position: fixed;
     top: 0;
-    /* Mantém o eixo sempre centralizado para evitar saltos na animação */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -62,7 +62,6 @@ body {
     border-radius: 0px;
     box-shadow: none;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Otimização de GPU */
     will-change: top, width, padding, background-color, border-radius;
 }
 
@@ -84,29 +83,15 @@ body {
     opacity: 0;
     visibility: hidden;
 }
-/* Scroll customizado e fluido para o Catálogo */
+
+/* Configura o container de scroll do catálogo e oculta a barra nativa duplicada (pois usamos a customizada lateral) */
 .catalog-scroll {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
-    scrollbar-width: thin; 
-    scrollbar-color: #8c7460 transparent; /* Castanho mais escuro para contraste */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .catalog-scroll::-webkit-scrollbar {
-    width: 6px;
-    -webkit-appearance: none; /* Força a exibição em motores mobile */
-}
-
-.catalog-scroll::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.03); /* Fundo muito subtil para marcar o trilho */
-    border-radius: 10px;
-}
-
-.catalog-scroll::-webkit-scrollbar-thumb {
-    background-color: #8c7460; /* Castanho visível */
-    border-radius: 10px;
-}
-
-.catalog-scroll::-webkit-scrollbar-thumb:hover {
-    background-color: #d1d5db;
+    display: none;
 }

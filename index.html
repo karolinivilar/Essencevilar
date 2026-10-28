@@ -15,8 +15,10 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<!-- Força o navegador a baixar a logo escura antes do usuário rolar a tela -->
-<link rel="preload" href="fotos/logo2.webp" as="image">
+
+    <!-- Força o navegador a baixar a logo escura antes do usuário rolar a tela -->
+    <link rel="preload" href="fotos/logo2.webp" as="image">
+
     <!-- CSS Externo -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -901,9 +903,9 @@
         </div>
     </footer>
 
-    <!-- Estrutura do Modal de Catálogo -->
-    <div id="catalogModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm px-4">
-        <div id="catalogContent" class="bg-[#fcfbf9] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+    <!-- Estrutura do Modal de Catálogo (Com Barra de Rolagem Visual Garantida em PC e Mobile) -->
+    <div id="catalogModal" data-lenis-prevent class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm px-4">
+        <div id="catalogContent" class="bg-[#fcfbf9] w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] md:max-h-[90vh]">
             
             <div class="flex justify-between items-center p-6 border-b border-[#5a4b41]/20 shrink-0">
                 <h3 class="text-3xl font-serif text-[#5a4b41]">Catálogo Completo</h3>
@@ -914,83 +916,93 @@
                 </button>
             </div>
 
-            <div class="p-6 md:p-8 overflow-y-scroll text-[#2b2a29] font-sans catalog-scroll flex-1 touch-pan-y">
-                <!-- Sobrancelhas -->
-                <div class="mb-10">
-                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Sobrancelhas</h4>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Design Personalizado</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 50,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Design com Henna</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 60,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Nano Fios</p><p class="text-xs text-gray-500">Retoque 30 dias incluso (Retoque Anual: R$ 450,00)</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Micropigmentação Sombreada</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Brow Lamination</p><p class="text-xs text-gray-500">Incluso design (Durabilidade 4 a 8 semanas)</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Microhenna</p><p class="text-xs text-gray-500">Durabilidade de 03 a 06 meses (Sem retoque)</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 299,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Reparo Tecidual (Fort Brown)</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 167,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Correção de Micropigmentação</p><p class="text-xs text-gray-500">Necessário avaliação</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 600,00</p>
-                        </li>
-                    </ul>
+            <!-- Área Central com Barra Lateral Dedicada -->
+            <div class="relative flex-1 min-h-0 overflow-hidden flex">
+                
+                <div id="catalogScrollArea" class="p-6 pr-8 md:p-8 md:pr-10 overflow-y-scroll text-[#2b2a29] font-sans catalog-scroll flex-1 min-h-0 touch-pan-y pb-12">
+                    <!-- Sobrancelhas -->
+                    <div class="mb-10">
+                        <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Sobrancelhas</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Design Personalizado</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 50,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Design com Henna</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 60,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Nano Fios</p><p class="text-xs text-gray-500">Retoque 30 dias incluso (Retoque Anual: R$ 450,00)</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Micropigmentação Sombreada</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 587,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Brow Lamination</p><p class="text-xs text-gray-500">Incluso design (Durabilidade 4 a 8 semanas)</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Microhenna</p><p class="text-xs text-gray-500">Durabilidade de 03 a 06 meses (Sem retoque)</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 299,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Reparo Tecidual (Fort Brown)</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 167,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Correção de Micropigmentação</p><p class="text-xs text-gray-500">Necessário avaliação</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 600,00</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Lábios -->
+                    <div class="mb-10">
+                        <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Lábios</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Hydra Gloss Lips</p><p class="text-xs text-gray-500">Valor por sessão</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 75,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Micropigmentação Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Neutralização Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Rosto e Cílios -->
+                    <div>
+                        <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Rosto & Cílios</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Lash Lifting</p><p class="text-xs text-gray-500">Durabilidade 4 a 8 semanas</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Depilação Rosto Completo</p><p class="text-xs text-gray-500">Linha e Cera</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 28,00</p>
+                            </li>
+                            <li class="flex justify-between items-end border-b border-gray-200 pb-2">
+                                <div><p class="font-medium text-lg">Depilação Buço</p></div>
+                                <p class="font-bold text-[#5a4b41]">R$ 15,00</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Lábios -->
-                <div class="mb-10">
-                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Lábios</h4>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Hydra Gloss Lips</p><p class="text-xs text-gray-500">Valor por sessão</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 75,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Micropigmentação Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Neutralização Labial</p><p class="text-xs text-gray-500">Retoque de 30 a 45 dias incluso</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 450,00</p>
-                        </li>
-                    </ul>
+                <!-- Barra de Rolagem Visual Customizada (Visível sempre no Mobile e no PC) -->
+                <div id="catalogScrollTrack" class=" absolute right-2.5 top-4 bottom-4 w-1.5 bg-[#5a4b41]/15 rounded-full overflow-hidden z-20 cursor-pointer">
+                    <div id="catalogScrollThumb" class="w-full bg-[#8c7460] rounded-full transition-transform duration-75 ease-out" style="height: 30%;"></div>
                 </div>
 
-                <!-- Rosto e Cílios -->
-                <div>
-                    <h4 class="text-xl font-bold text-[#5a4b41] uppercase tracking-wider mb-6 border-l-4 border-[#5a4b41] pl-3">Rosto & Cílios</h4>
-                    <ul class="space-y-4">
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Lash Lifting</p><p class="text-xs text-gray-500">Durabilidade 4 a 8 semanas</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 149,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Depilação Rosto Completo</p><p class="text-xs text-gray-500">Linha e Cera</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 28,00</p>
-                        </li>
-                        <li class="flex justify-between items-end border-b border-gray-200 pb-2">
-                            <div><p class="font-medium text-lg">Depilação Buço</p></div>
-                            <p class="font-bold text-[#5a4b41]">R$ 15,00</p>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
             <div class="p-6 border-t border-[#5a4b41]/20 bg-white flex justify-end shrink-0">
